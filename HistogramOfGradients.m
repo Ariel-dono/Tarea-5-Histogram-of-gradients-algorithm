@@ -25,6 +25,7 @@ function [vcells,hcells,matrixHist] = histograms(gradients, bins, winSize)
     hcells = round(hcells);
     i = 1;
     j = 1;
+    cells = 1;
     while i+(winSize-1) < maxi
         while j+(winSize-1)< maxj
             window = gradients(i:i+(winSize-1), j:j+(winSize-1));
@@ -32,10 +33,11 @@ function [vcells,hcells,matrixHist] = histograms(gradients, bins, winSize)
             listHist = [listHist; windowHist];
             j=j+winSize;
         end
-        matrixHist = [matrixHist; listHist];
+        matrixHist(cells,:,:) = listHist;
         listHist = [];
         j = 1;
         i=i+winSize;
+        cells = cells + 1;
     end
 end
 
